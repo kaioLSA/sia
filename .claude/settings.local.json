@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(grep -l \"lg:text-6xl\" *.tsx)",
+      "Bash(for f:*)",
+      "Bash(do sed:*)",
+      "Bash(done)",
+      "Bash(ipconfig)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill //PID 15884 //F)",
+      "Bash(npm install:*)"
+    ]
+  }
+}
