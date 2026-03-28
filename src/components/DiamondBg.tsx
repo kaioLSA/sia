@@ -44,7 +44,7 @@ export const DiamondBgAnimated = forwardRef<HTMLDivElement, { className?: string
         return len;
       });
 
-      // Main timeline: draw on → pause → draw off → pause → loop
+      // Main timeline: draw on → pause → fade out → reset → loop
       const tl = gsap.timeline({ repeat: -1 });
 
       // Draw each line one by one
@@ -59,21 +59,25 @@ export const DiamondBgAnimated = forwardRef<HTMLDivElement, { className?: string
       // Hold the complete shape
       tl.to({}, { duration: 2 });
 
-      // Erase each line one by one (reverse order)
+      // Fade out lines one by one (reverse order) — smooth on mobile
       [...validPaths].reverse().forEach((p, i) => {
-        const len = lengths[validPaths.indexOf(p)];
         tl.to(p, {
-          strokeDashoffset: -len,
-          duration: 1.5,
-          ease: 'power2.inOut',
-        }, `erase+=${i * 0.4}`);
+          strokeOpacity: 0,
+          duration: 1,
+          ease: 'power2.in',
+        }, `erase+=${i * 0.3}`);
       });
 
       // Pause before looping
-      tl.to({}, { duration: 1.5 });
+      tl.to({}, { duration: 1 });
 
-      // Reset offsets for seamless loop
-      tl.set(validPaths, { strokeDashoffset: (i: number) => lengths[i] });
+      // Reset: hide paths, restore offset and opacity for next loop
+      tl.set(validPaths, {
+        strokeDashoffset: (_i: number, target: SVGPathElement) => {
+          return lengths[validPaths.indexOf(target)];
+        },
+        strokeOpacity: 0.15,
+      });
 
       return () => { tl.kill(); };
     }, []);
