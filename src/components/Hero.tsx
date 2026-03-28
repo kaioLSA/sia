@@ -1,29 +1,19 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { DiamondBg } from './DiamondBg';
-
-gsap.registerPlugin(ScrollTrigger);
+import { DiamondBgAnimated } from './DiamondBg';
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: { ease: 'power3.out' },
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 90%',
-          end: 'top 50%',
-          scrub: 1,
-        },
-      });
+      // On-mount entrance animation
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      tl.fromTo('.hero-logo', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1 })
-        .fromTo('.hero-desc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
-        .fromTo('.hero-btn', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.15 }, '-=0.3')
-        .fromTo('.hero-footer-item', { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.2 }, '-=0.2');
+      tl.fromTo('.hero-logo', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1.2 })
+        .fromTo('.hero-desc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
+        .fromTo('.hero-btn', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.15 }, '-=0.4')
+        .fromTo('.hero-footer-item', { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.2 }, '-=0.3');
     }, sectionRef);
 
     return () => ctx.revert();
@@ -35,7 +25,7 @@ export function Hero() {
       id="hero"
       className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 py-32 overflow-hidden bg-black"
     >
-      <DiamondBg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] max-w-[150vw]" />
+      <DiamondBgAnimated className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] max-w-[150vw]" />
 
       <div className="relative z-10">
         <div className="flex items-center justify-center mb-14">

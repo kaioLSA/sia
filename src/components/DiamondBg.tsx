@@ -1,3 +1,19 @@
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import { gsap } from 'gsap';
+
+// 4 sub-paths extracted from bg-diamond.svg
+const paths = [
+  // Top-right diamond piece
+  "M1205.21 484.035L1204.42 485.584C1196.23 501.817 1176.61 531.984 1166.45 548.858L1084.91 684.216L1084.91 684.217C1004.67 818.066 923.509 955.445 841.598 1088.09C825.088 1116.21 808.244 1144.14 791.072 1171.87L790.098 1173.45L789.223 1171.81L670.676 950.936L670.414 950.446L670.664 949.95C677.934 935.508 694.476 909.61 703.18 895.076V895.075L768.782 785.761L779.99 767.042C836.055 673.276 892.502 577.045 949.714 484.566L950.027 484.061H950.622L1203.47 484.035H1205.21Z",
+  // Center horizontal diamond piece
+  "M258.701 594.51C322.326 593.617 387.698 594.375 451.439 594.332L765.172 594.287L767.107 594.286L766.076 595.924C760.049 605.496 726.693 661.9 693.944 716.564C677.575 743.888 661.361 770.768 648.802 791.125C642.523 801.302 637.154 809.856 633.134 816.02C631.125 819.1 629.447 821.593 628.158 823.397C627.514 824.298 626.959 825.038 626.503 825.598C626.076 826.122 625.66 826.586 625.302 826.836L625.053 827.01L624.75 827.026C600.122 828.367 569.196 827.293 544.046 827.242V827.241L220.704 827.198C187.771 827.221 151.488 828.096 118.789 826.861L116.962 826.793L117.918 825.236C125.292 813.228 158.144 757.356 190.228 703.618C206.266 676.757 222.108 650.434 234.469 630.41C240.649 620.399 245.963 611.956 249.998 605.805C252.014 602.73 253.717 600.219 255.052 598.368C255.719 597.443 256.301 596.674 256.789 596.078C257.26 595.501 257.692 595.024 258.055 594.738L258.339 594.515L258.701 594.51Z",
+  // Bottom-left diamond piece
+  "M417.717 -92.5049L536.264 128.374L536.527 128.863L536.278 129.359C529.007 143.802 512.464 169.7 503.76 184.233V184.234L438.159 293.549C378.409 393.186 318.253 496.101 257.226 594.744L256.914 595.25H256.319L3.47021 595.274H1.73486L2.51709 593.726C10.7085 577.493 30.33 547.326 40.4937 530.451L122.027 395.093L137.083 369.956C212.42 244.089 288.551 115.575 365.342 -8.77637C381.852 -36.9026 398.696 -64.8317 415.869 -92.5625L416.842 -94.1348L417.717 -92.5049Z",
+  // Top-center diamond piece
+  "M582.191 252.283C606.818 250.943 637.744 252.018 662.894 252.068H662.893L986.236 252.11C1019.17 252.088 1055.45 251.214 1088.15 252.448L1089.98 252.517L1089.02 254.074C1081.65 266.083 1048.8 321.955 1016.71 375.692C1000.67 402.553 984.832 428.876 972.471 448.899C966.291 458.91 960.977 467.354 956.943 473.505C954.926 476.579 953.223 479.09 951.888 480.941C951.221 481.866 950.639 482.636 950.152 483.232C949.68 483.809 949.248 484.285 948.885 484.571L948.601 484.796L948.24 484.801C888.591 485.637 827.407 485.023 767.471 484.979L755.501 484.978L441.769 485.023H439.834L440.865 483.387C446.891 473.815 480.247 417.411 512.997 362.746C529.366 335.423 545.579 308.541 558.138 288.185C564.417 278.007 569.786 269.454 573.806 263.29C575.815 260.209 577.494 257.716 578.784 255.912C579.428 255.011 579.982 254.271 580.437 253.712C580.864 253.187 581.281 252.724 581.638 252.475L581.887 252.3L582.191 252.283Z",
+];
+
+// Simple version — just an image, no animation
 export function DiamondBg({ className = '', opacity = 'opacity-100' }: { className?: string; opacity?: string }) {
   return (
     <img
@@ -8,3 +24,85 @@ export function DiamondBg({ className = '', opacity = 'opacity-100' }: { classNa
     />
   );
 }
+
+// Animated version — lines draw on/off in a loop
+export const DiamondBgAnimated = forwardRef<HTMLDivElement, { className?: string }>(
+  ({ className = '' }, ref) => {
+    const innerRef = useRef<HTMLDivElement>(null);
+    const pathRefs = useRef<(SVGPathElement | null)[]>([]);
+
+    useImperativeHandle(ref, () => innerRef.current!);
+
+    useEffect(() => {
+      const validPaths = pathRefs.current.filter(Boolean) as SVGPathElement[];
+      if (!validPaths.length) return;
+
+      // Measure each path length and set up dasharray
+      const lengths = validPaths.map((p) => {
+        const len = p.getTotalLength();
+        gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
+        return len;
+      });
+
+      // Main timeline: draw on → pause → draw off → pause → loop
+      const tl = gsap.timeline({ repeat: -1 });
+
+      // Draw each line one by one
+      validPaths.forEach((p, i) => {
+        tl.to(p, {
+          strokeDashoffset: 0,
+          duration: 1.5,
+          ease: 'power2.inOut',
+        }, i * 0.4);
+      });
+
+      // Hold the complete shape
+      tl.to({}, { duration: 2 });
+
+      // Erase each line one by one (reverse order)
+      [...validPaths].reverse().forEach((p, i) => {
+        const len = lengths[validPaths.indexOf(p)];
+        tl.to(p, {
+          strokeDashoffset: -len,
+          duration: 1.5,
+          ease: 'power2.inOut',
+        }, `erase+=${i * 0.4}`);
+      });
+
+      // Pause before looping
+      tl.to({}, { duration: 1.5 });
+
+      // Reset offsets for seamless loop
+      tl.set(validPaths, { strokeDashoffset: (i: number) => lengths[i] });
+
+      return () => { tl.kill(); };
+    }, []);
+
+    return (
+      <div ref={innerRef} className={`pointer-events-none select-none ${className}`}>
+        <svg
+          width="1207"
+          height="1080"
+          viewBox="0 0 1207 1080"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full"
+        >
+          {paths.map((d, i) => (
+            <path
+              key={i}
+              ref={(el) => { pathRefs.current[i] = el; }}
+              d={d}
+              stroke="white"
+              strokeOpacity="0.15"
+              strokeWidth="2.13577"
+              fill="none"
+            />
+          ))}
+        </svg>
+      </div>
+    );
+  }
+);
+
+DiamondBgAnimated.displayName = 'DiamondBgAnimated';
