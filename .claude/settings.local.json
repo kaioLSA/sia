@@ -9,7 +9,14 @@
       "Bash(ipconfig)",
       "Bash(netstat -ano)",
       "Bash(taskkill //PID 15884 //F)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm run:*)",
+      "Bash(gh api:*)",
+      "Bash(where gh:*)",
+      "Read(//c/Program Files/GitHub CLI/**)",
+      "Read(//c/Program Files \\(x86\\)/GitHub CLI/**)",
+      "Read(//c/Users/roger/OneDrive/Área de Trabalho/SIA/$HOME/AppData/Local/Programs/GitHub CLI/**)"
     ]
   }
 }

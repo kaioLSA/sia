@@ -27,7 +27,7 @@ function App() {
   return (
     <>
       {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
-      <Navbar />
+      <Navbar visible={heroReady} />
       <Hero animate={heroReady} />
       <Highlight />
       <Diagnostico />

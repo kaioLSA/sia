@@ -41,13 +41,13 @@ export function Hero({ animate = false }: HeroProps) {
             src={asset('/images/logo.svg')}
             alt="Sette IA - Agentes Inteligentes e Automação"
             className="hero-logo w-[240px] sm:w-[340px] lg:w-[420px] h-auto"
-            style={{ opacity: animate ? undefined : 0 }}
+            style={{ opacity: 0 }}
           />
         </div>
 
         <p
           className="hero-desc font-mono text-sm sm:text-base leading-relaxed text-white/50 mb-12 max-w-xl mx-auto"
-          style={{ opacity: animate ? undefined : 0 }}
+          style={{ opacity: 0 }}
         >
           Transformamos empresas com agentes de IA que trabalham 24/7,
           escalam sem custo extra e aprendem com cada interação.
@@ -57,14 +57,14 @@ export function Hero({ animate = false }: HeroProps) {
           <a
             href="#contato"
             className="hero-btn bg-blue text-white px-8 py-4 rounded font-mono text-sm tracking-widest uppercase hover:bg-blue-hover transition-all hover:-translate-y-0.5 border border-blue"
-            style={{ opacity: animate ? undefined : 0 }}
+            style={{ opacity: 0 }}
           >
             Agendar Reunião
           </a>
           <a
             href="#sobre"
             className="hero-btn text-white px-8 py-4 rounded font-mono text-sm tracking-widest uppercase border border-white/20 hover:border-white/50 transition-all hover:-translate-y-0.5"
-            style={{ opacity: animate ? undefined : 0 }}
+            style={{ opacity: 0 }}
           >
             Saiba Mais
           </a>
@@ -74,13 +74,13 @@ export function Hero({ animate = false }: HeroProps) {
       <div className="absolute bottom-10 left-6 right-6 flex justify-between items-center max-w-[1200px] mx-auto flex-col sm:flex-row gap-4">
         <span
           className="hero-footer-item font-mono text-xs tracking-[4px] uppercase text-white/40"
-          style={{ opacity: animate ? undefined : 0 }}
+          style={{ opacity: 0 }}
         >
           //SETTE IA ® 2026
         </span>
         <span
           className="hero-footer-item font-mono text-xs tracking-[4px] uppercase text-white/40 px-6 py-3 border border-white/15"
-          style={{ opacity: animate ? undefined : 0 }}
+          style={{ opacity: 0 }}
         >
           PROPOSTA VÁLIDA POR 7 DIAS
         </span>

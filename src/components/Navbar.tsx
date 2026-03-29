@@ -54,7 +54,7 @@ function smoothScroll(id: string) {
   requestAnimationFrame(tick);
 }
 
-export function Navbar() {
+export function Navbar({ visible = true }: { visible?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -100,6 +100,7 @@ export function Navbar() {
             ? 'bg-black/90 backdrop-blur-xl py-3 border-b border-white/5'
             : 'bg-transparent py-5'
         }`}
+        style={{ opacity: visible ? 1 : 0, pointerEvents: visible ? undefined : 'none' }}
       >
         <div className="max-w-[1200px] mx-auto px-6">
           {/* Desktop: centered layout with logo in the middle */}
