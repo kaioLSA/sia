@@ -1,7 +1,9 @@
+import { asset } from '../utils/asset';
+
 export function Logo({ size = 40, className = '' }: { size?: number; className?: string }) {
   return (
     <img
-      src="/images/logo.svg"
+      src={asset('/images/logo.svg')}
       alt="Sette IA"
       width={size}
       height={size * 0.32}

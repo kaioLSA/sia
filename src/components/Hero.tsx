@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { DiamondBgAnimated } from './DiamondBg';
+import { asset } from '../utils/asset';
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -30,7 +31,7 @@ export function Hero() {
       <div className="relative z-10">
         <div className="flex items-center justify-center mb-14">
           <img
-            src="/images/logo.svg"
+            src={asset('/images/logo.svg')}
             alt="Sette IA - Agentes Inteligentes e Automação"
             className="hero-logo w-[240px] sm:w-[340px] lg:w-[420px] h-auto"
           />

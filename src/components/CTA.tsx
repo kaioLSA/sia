@@ -1,5 +1,6 @@
 import { DiamondBg } from './DiamondBg';
 import { useGsapReveal } from '../hooks/useGsapReveal';
+import { asset } from '../utils/asset';
 
 export function CTA() {
   const ref = useGsapReveal();
@@ -10,7 +11,7 @@ export function CTA() {
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-6">
         <div className="flex items-center justify-center mb-12">
-          <img src="/images/logo.svg" alt="Sette IA" className="gsap-img h-8 sm:h-10 w-auto" />
+          <img src={asset('/images/logo.svg')} alt="Sette IA" className="gsap-img h-8 sm:h-10 w-auto" />
         </div>
 
         <h2 className="font-heading text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-[-3px] leading-none text-white mb-12">

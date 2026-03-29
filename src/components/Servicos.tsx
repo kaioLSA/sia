@@ -1,4 +1,5 @@
 import { useGsapReveal } from '../hooks/useGsapReveal';
+import { asset } from '../utils/asset';
 
 const services = [
   {
@@ -44,7 +45,7 @@ export function Servicos() {
 
   return (
     <section ref={ref} id="servicos" className="relative bg-black py-24 sm:py-32 border-t border-white/5 overflow-hidden">
-      <img src="/images/agentes-img.svg" alt="" aria-hidden="true" className="absolute top-0 right-0 w-[50%] h-full object-cover opacity-20 pointer-events-none" />
+      <img src={asset('/images/agentes-img.svg')} alt="" aria-hidden="true" className="absolute top-0 right-0 w-[50%] h-full object-cover opacity-20 pointer-events-none" />
       <div className="relative z-10 max-w-[1200px] mx-auto px-6">
         <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-2px] leading-tight text-white uppercase mb-4">
           AGENTES<br />ESPECIALIZADOS

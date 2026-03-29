@@ -1,5 +1,6 @@
 import { DiamondBg } from './DiamondBg';
 import { useGsapReveal } from '../hooks/useGsapReveal';
+import { asset } from '../utils/asset';
 
 export function Metodologia() {
   const ref = useGsapReveal();
@@ -13,10 +14,10 @@ export function Metodologia() {
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-2px] leading-tight text-white uppercase mb-12">
               METODOLOGIA<br />SETTE IA
             </h2>
-            <img src="/images/metodologia-steps.svg" alt="Metodologia: Identificar, Construir, Escalar" className="gsap-img max-w-sm w-full" />
+            <img src={asset('/images/metodologia-steps.svg')} alt="Metodologia: Identificar, Construir, Escalar" className="gsap-img max-w-sm w-full" />
           </div>
           <div className="hidden md:flex items-center justify-center">
-            <img src="/images/logo.svg" alt="" aria-hidden="true" className="w-64 h-auto opacity-10" />
+            <img src={asset('/images/logo.svg')} alt="" aria-hidden="true" className="w-64 h-auto opacity-10" />
           </div>
         </div>
         <p className="gsap-fade font-mono text-xs tracking-[4px] uppercase text-white/40 mt-20">SETTE IA ® 2026</p>

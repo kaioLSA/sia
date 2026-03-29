@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { asset } from '../utils/asset';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -116,7 +117,7 @@ export function Navbar() {
             {/* Logo icon centered */}
             <button onClick={() => navigate('hero')} className="mx-4 bg-transparent border-none cursor-pointer">
               <img
-                src="/images/logo-icon.svg"
+                src={asset('/images/logo-icon.svg')}
                 alt="Sette IA"
                 className="h-8 w-auto"
               />
@@ -143,7 +144,7 @@ export function Navbar() {
           {/* Mobile: logo left, hamburger right */}
           <div className="md:hidden flex items-center justify-between">
             <button onClick={() => navigate('hero')} className="bg-transparent border-none cursor-pointer">
-              <img src="/images/logo-icon.svg" alt="Sette IA" className="h-6 w-auto" />
+              <img src={asset('/images/logo-icon.svg')} alt="Sette IA" className="h-6 w-auto" />
             </button>
             <button
               onClick={() => setMenuOpen(!menuOpen)}

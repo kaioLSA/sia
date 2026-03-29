@@ -1,5 +1,6 @@
 import { DiamondBg } from './DiamondBg';
 import { useGsapReveal } from '../hooks/useGsapReveal';
+import { asset } from '../utils/asset';
 
 export function Oportunidade() {
   const ref = useGsapReveal();
@@ -11,7 +12,7 @@ export function Oportunidade() {
         <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-2px] leading-tight text-white uppercase mb-12">
           A OPORTUNIDADE
         </h2>
-        <img src="/images/comparison-table.svg" alt="Tabela comparativa: Humanos vs Agentes Sette IA" className="gsap-img max-w-[700px] w-full" />
+        <img src={asset('/images/comparison-table.svg')} alt="Tabela comparativa: Humanos vs Agentes Sette IA" className="gsap-img max-w-[700px] w-full" />
         <p className="gsap-fade font-mono text-xs tracking-[4px] uppercase text-white/40 mt-20">SETTE IA ® 2026</p>
       </div>
     </section>

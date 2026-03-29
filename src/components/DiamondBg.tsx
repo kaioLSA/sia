@@ -1,5 +1,6 @@
 import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { gsap } from 'gsap';
+import { asset } from '../utils/asset';
 
 // 4 sub-paths extracted from bg-diamond.svg
 const paths = [
@@ -17,7 +18,7 @@ const paths = [
 export function DiamondBg({ className = '', opacity = 'opacity-100' }: { className?: string; opacity?: string }) {
   return (
     <img
-      src="/images/bg-diamond.svg"
+      src={asset('/images/bg-diamond.svg')}
       alt=""
       aria-hidden="true"
       className={`pointer-events-none select-none ${opacity} ${className}`}

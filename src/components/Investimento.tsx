@@ -1,5 +1,6 @@
 import { DiamondBg } from './DiamondBg';
 import { useGsapReveal } from '../hooks/useGsapReveal';
+import { asset } from '../utils/asset';
 
 export function Investimento() {
   const ref = useGsapReveal();
@@ -11,7 +12,7 @@ export function Investimento() {
         <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-2px] leading-tight text-white uppercase mb-12">
           INVESTIMENTO
         </h2>
-        <img src="/images/investimento-details.svg" alt="Setup inicial R$5.000 + Mensalidade R$2.000" className="gsap-img max-w-[450px] w-full mb-16" />
+        <img src={asset('/images/investimento-details.svg')} alt="Setup inicial R$5.000 + Mensalidade R$2.000" className="gsap-img max-w-[450px] w-full mb-16" />
         <p className="gsap-fade font-heading text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight leading-snug text-white/50 max-w-[700px]">
           Quanto custaria contratar uma equipe humana equivalente versus o investimento na Sette IA?
         </p>
