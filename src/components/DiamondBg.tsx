@@ -27,14 +27,16 @@ export function DiamondBg({ className = '', opacity = 'opacity-100' }: { classNa
 }
 
 // Animated version — lines draw on/off in a loop
-export const DiamondBgAnimated = forwardRef<HTMLDivElement, { className?: string }>(
-  ({ className = '' }, ref) => {
+export const DiamondBgAnimated = forwardRef<HTMLDivElement, { className?: string; startAnimation?: boolean }>(
+  ({ className = '', startAnimation = true }, ref) => {
     const innerRef = useRef<HTMLDivElement>(null);
     const pathRefs = useRef<(SVGPathElement | null)[]>([]);
 
     useImperativeHandle(ref, () => innerRef.current!);
 
     useEffect(() => {
+      if (!startAnimation) return;
+
       const validPaths = pathRefs.current.filter(Boolean) as SVGPathElement[];
       if (!validPaths.length) return;
 
@@ -81,7 +83,7 @@ export const DiamondBgAnimated = forwardRef<HTMLDivElement, { className?: string
       });
 
       return () => { tl.kill(); };
-    }, []);
+    }, [startAnimation]);
 
     return (
       <div ref={innerRef} className={`pointer-events-none select-none ${className}`}>
