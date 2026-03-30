@@ -1,13 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import { gsap } from 'gsap';
 import { DiamondBgAnimated } from './DiamondBg';
 import { asset } from '../utils/asset';
 
 interface HeroProps {
   animate?: boolean;
+  heroLogoRef?: RefObject<HTMLImageElement | null>;
+  splashDone?: boolean;
 }
 
-export function Hero({ animate = false }: HeroProps) {
+export function Hero({ animate = false, heroLogoRef, splashDone = false }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const hasAnimated = useRef(false);
 
@@ -18,8 +20,8 @@ export function Hero({ animate = false }: HeroProps) {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      tl.fromTo('.hero-logo', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1.2 })
-        .fromTo('.hero-desc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
+      // Logo is already visible from splash transition, animate the rest
+      tl.fromTo('.hero-desc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 })
         .fromTo('.hero-btn', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.15 }, '-=0.4')
         .fromTo('.hero-footer-item', { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.2 }, '-=0.3');
     }, sectionRef);
@@ -38,10 +40,11 @@ export function Hero({ animate = false }: HeroProps) {
       <div className="relative z-10">
         <div className="flex items-center justify-center mb-14">
           <img
+            ref={heroLogoRef}
             src={asset('/images/logo.svg')}
             alt="Sette IA - Agentes Inteligentes e Automação"
             className="hero-logo w-[240px] sm:w-[340px] lg:w-[420px] h-auto"
-            style={{ opacity: 0 }}
+            style={{ opacity: splashDone ? 1 : 0 }}
           />
         </div>
 

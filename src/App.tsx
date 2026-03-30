@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { SplashScreen } from './components/SplashScreen';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -17,29 +17,33 @@ import { Footer } from './components/Footer';
 function App() {
   const [splashDone, setSplashDone] = useState(false);
   const [heroReady, setHeroReady] = useState(false);
+  const heroLogoRef = useRef<HTMLImageElement>(null);
 
   const handleSplashComplete = () => {
     setSplashDone(true);
-    // 1 second delay before Hero animations start
-    setTimeout(() => setHeroReady(true), 1000);
+    setTimeout(() => setHeroReady(true), 300);
   };
 
   return (
     <>
-      {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
+      {!splashDone && (
+        <SplashScreen onComplete={handleSplashComplete} heroLogoRef={heroLogoRef} />
+      )}
       <Navbar visible={heroReady} />
-      <Hero animate={heroReady} />
-      <Highlight />
-      <Diagnostico />
-      <Oportunidade />
-      <Metodologia />
-      <Servicos />
-      <ComoFunciona />
-      <Entregaveis />
-      <Investimento />
-      <Condicoes />
-      <CTA />
-      <Footer />
+      <Hero animate={heroReady} heroLogoRef={heroLogoRef} splashDone={splashDone} />
+      <div style={{ opacity: heroReady ? 1 : 0 }}>
+        <Highlight />
+        <Diagnostico />
+        <Oportunidade />
+        <Metodologia />
+        <Servicos />
+        <ComoFunciona />
+        <Entregaveis />
+        <Investimento />
+        <Condicoes />
+        <CTA />
+        <Footer />
+      </div>
     </>
   );
 }

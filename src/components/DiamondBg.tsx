@@ -43,7 +43,7 @@ export const DiamondBgAnimated = forwardRef<HTMLDivElement, { className?: string
       // Measure each path length and set up dasharray
       const lengths = validPaths.map((p) => {
         const len = p.getTotalLength();
-        gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
+        gsap.set(p, { strokeDasharray: len, strokeDashoffset: len, strokeOpacity: 0.15 });
         return len;
       });
 
@@ -101,7 +101,7 @@ export const DiamondBgAnimated = forwardRef<HTMLDivElement, { className?: string
               ref={(el) => { pathRefs.current[i] = el; }}
               d={d}
               stroke="white"
-              strokeOpacity="0.15"
+              strokeOpacity="0"
               strokeWidth="2.13577"
               fill="none"
             />
